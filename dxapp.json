@@ -1,0 +1,49 @@
+{
+  "name": "upload_multiqc",
+  "title": "Upload Multiqc",
+  "summary": "Uploads multiqc file to the Viapath Genomics server",
+  "tags": [
+    "QC"
+  ],
+  "dxapi": "1.0.0",
+  "inputSpec": [
+    {
+      "name": "multiqc_html",
+      "label": "Multiqc HTML",
+      "help": "A multiqc html output file",
+      "class": "file",
+      "optional": false
+    }
+  ],
+  "outputSpec": [
+    {
+      "name": "output",
+      "label": "Output files",
+      "help": "Upload MultiQC app outputs",
+      "class": "array:file"
+    }
+  ],
+  "runSpec": {
+    "file": "src/code.sh",
+    "release": "14.04",
+    "interpreter": "bash",
+    "distribution": "Ubuntu"
+  },
+  "access": {
+    "network": [
+      "*"
+    ]
+  },
+  "details": {
+    "github release": "v1.0"
+  },
+  "regionalOptions": {
+    "aws:us-east-1": {
+      "systemRequirements": {
+        "main": {
+          "instanceType": "mem1_ssd1_x2"
+        }
+      }
+    }
+  }
+}
