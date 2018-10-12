@@ -11,14 +11,10 @@ out_dir="output/QC/multiqc/upload_multiqc/"
 mkdir -p ${out_dir}
 
 # Download old index.html for archiving
-scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
-    mokaguys@genomics.viapath.co.uk:/var/www/html/mokaguys/multiqc/index.html \
-    ${out_dir}
+scp mokaguys@genomics.viapath.co.uk:/var/www/html/mokaguys/multiqc/index.html ${out_dir}
 
 # Copy HTML file to viapath server
-scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
-    ${multiqc_html_path} \
-    mokaguys@genomics.viapath.co.uk:/var/www/html/mokaguys/multiqc/reports
+scp ${multiqc_html_path} mokaguys@genomics.viapath.co.uk:/var/www/html/mokaguys/multiqc/reports
 
 # Get list of multiqc html files from server
 ssh multiqc@genomics.viapath.co.uk ls -rt /var/www/html/mokaguys/multiqc/reports/*.html > multiqc_reports.txt
