@@ -17,8 +17,8 @@
   ],
   "outputSpec": [
     {
-      "name": "output",
-      "label": "Output files",
+      "name": "upload_multiqc",
+      "label": "MultiQC server index.html files",
       "help": "Upload MultiQC app outputs",
       "class": "array:file"
     }

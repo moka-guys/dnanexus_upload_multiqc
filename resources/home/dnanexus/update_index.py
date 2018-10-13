@@ -24,6 +24,5 @@ reports = ( MultiQCReport(file) for file in reports_list)
 with open('template.html', 'r') as file:
     index_template = Template(file.read())
 
-# Write index
-with open('index.html', 'w') as index:
-    index.write(index_template.render(reports=reports))
+# Write index.html to stdout
+print(index_template.render(reports=reports))
