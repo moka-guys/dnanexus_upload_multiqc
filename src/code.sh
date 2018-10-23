@@ -27,7 +27,7 @@ scp $ssh_opts mokaguys@genomics.viapath.co.uk:/var/www/html/mokaguys/multiqc/ind
 
 # Copy HTML file to the server if it does not exist in the correct location
 file_exists_test="$ssh_opts mokaguys@genomics.viapath.co.uk test -e /var/www/html/mokaguys/multiqc/${multiqc_html_name}"
-if ! ssh ${file_exists_test}; then
+if ssh ${file_exists_test}; then
    echo "File exists"
 else
    scp $ssh_opts ${multiqc_html_path} mokaguys@genomics.viapath.co.uk:/var/www/html/mokaguys/multiqc/reports
