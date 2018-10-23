@@ -1,6 +1,6 @@
 {
-  "name": "upload_multiqc",
-  "title": "Upload Multiqc",
+  "name": "upload_multiqc_v1.0",
+  "title": "Upload Multiqc v1.0",
   "summary": "Uploads multiqc file to the Viapath Genomics server",
   "tags": [
     "QC"
@@ -35,7 +35,7 @@
     ]
   },
   "details": {
-    "github release": "v1.0"
+    "github release": "v1.6"
   },
   "regionalOptions": {
     "aws:us-east-1": {
