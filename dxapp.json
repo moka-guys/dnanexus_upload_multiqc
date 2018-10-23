@@ -24,6 +24,13 @@
     }
   ],
   "runSpec": {
+    "execDepends": [
+      {
+        "name": "Jinja2",
+        "package_manager": "pip",
+        "version": "2.10"
+      }
+    ],
     "file": "src/code.sh",
     "release": "14.04",
     "interpreter": "bash",

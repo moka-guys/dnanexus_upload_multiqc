@@ -36,8 +36,6 @@ fi
 # Get list of multiqc html files from server
 ssh $ssh_opts mokaguys@genomics.viapath.co.uk "ls -t /var/www/html/mokaguys/multiqc/reports/*.html" > multiqc_reports.txt
 
-# Install python HTML templating module
-sudo pip install Jinja2==2.10
 # Call python script to create a new index.html from html file list
 python update_index.py > ${out_dir}/new_index.html
 
