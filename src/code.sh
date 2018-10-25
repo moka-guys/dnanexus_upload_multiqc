@@ -27,7 +27,7 @@ ssh_opts='-q -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i /hom
 rsync -avhz -e "ssh $ssh_opts" mokaguys@genomics.viapath.co.uk:/var/www/html/mokaguys/multiqc/index.html ${out_dir}/old_index.html
 
 # Copy HTML file to the server if it does not exist in the correct location
-file_exists_test="$ssh_opts mokaguys@genomics.viapath.co.uk test -e /var/www/html/mokaguys/multiqc/${multiqc_html_name}"
+file_exists_test="$ssh_opts mokaguys@genomics.viapath.co.uk test -e /var/www/html/mokaguys/multiqc/reports/${multiqc_html_name}"
 if ssh ${file_exists_test}; then
    echo "File exists"
 else
