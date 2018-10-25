@@ -34,11 +34,8 @@ else
    rsync -avhz -e "ssh $ssh_opts" ${multiqc_html_path} mokaguys@genomics.viapath.co.uk:/var/www/html/mokaguys/multiqc/reports/${multiqc_html_name}
 fi
 
-# Get list of multiqc html files from server
-ssh $ssh_opts mokaguys@genomics.viapath.co.uk "ls -t /var/www/html/mokaguys/multiqc/reports/*.html" > multiqc_reports.txt
-
 # Call python script to create a new index.html from html file list
-python update_index.py > ${out_dir}/new_index.html
+python update_index.py ${out_dir}/old_index.html ${multiqc_html_path} > ${out_dir}/new_index.html
 
 # Upload new index.html to server
 rsync -avhz -e "ssh $ssh_opts" ${out_dir}/new_index.html mokaguys@genomics.viapath.co.uk:/var/www/html/mokaguys/multiqc/index.html

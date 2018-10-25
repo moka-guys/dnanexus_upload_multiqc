@@ -26,9 +26,9 @@
   "runSpec": {
     "execDepends": [
       {
-        "name": "Jinja2",
+        "name": "beautifulsoup4",
         "package_manager": "pip",
-        "version": "2.10"
+        "version": "4.6"
       }
     ],
     "file": "src/code.sh",
@@ -42,7 +42,7 @@
     ]
   },
   "details": {
-    "github release": "v1.6"
+    "github release": "v1.0"
   },
   "regionalOptions": {
     "aws:us-east-1": {
