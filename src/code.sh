@@ -26,7 +26,7 @@ ssh_opts='-q -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i /hom
 #   -z use compression in data transfer, -e SSH command with options
 rsync -avhz -e "ssh $ssh_opts" mokaguys@genomics.viapath.co.uk:/var/www/html/mokaguys/multiqc/index.html ${out_dir}/old_index.html
 
-# Create a variable containing the SSH command arguments required to determine if the file exists. 
+# Create a variable containing the SSH command arguments required to determine if the file exists.
 # These arguments include the options to connect to the server and the bash 'test' command, with the
 # expected multiqc report file path passed to the -e flag for testing.
 file_exists_test="$ssh_opts mokaguys@genomics.viapath.co.uk test -e /var/www/html/mokaguys/multiqc/reports/${multiqc_html_name}"
@@ -41,6 +41,7 @@ else
     # Call a python script to create a new index.html from html file list. This script outputs the file
     # 'new_index.html' to the current working directory.
     python update_index.py ${out_dir}/old_index.html ${multiqc_html_path}
+    mv new_index.html ${out_dir}
     # Upload new index.html to server
     rsync -avhz -e "ssh $ssh_opts" ${out_dir}/new_index.html mokaguys@genomics.viapath.co.uk:/var/www/html/mokaguys/multiqc/index.html
 fi
