@@ -1,7 +1,13 @@
 #!/usr/bin/env python
 """update_index.py
 
-Update Multiqc index file from the Viapath Genomics Server with link to new multiqc report.
+Update Multiqc index file from the Viapath Genomics Server with link to new multiqc report. 
+
+This script updates the 'index.html' file on the server (at the location /var/www/html/mokaguys/multiqc/), 
+which links to all MultiQC reports available. The script takes the index and the name of a multiqc report
+(present on the server at /var/www/html/mokaguys/multiqc/reports/) as command-line arguments. The
+script then creates a new index file from the input, containing a link to the multiqc report at the
+top of the reports list. The new index html file is output as 'new_index.html'.
 
 Example:
     $ python update_index.py old_index.html report-multiqc.html
