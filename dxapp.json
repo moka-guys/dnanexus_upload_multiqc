@@ -5,6 +5,9 @@
   "tags": [
     "QC"
   ],
+  "properties": {
+    "github release": "v1.0"
+  },
   "dxapi": "1.0.0",
   "inputSpec": [
     {
@@ -40,9 +43,6 @@
     "network": [
       "*"
     ]
-  },
-  "details": {
-    "github release": "v1.0"
   },
   "regionalOptions": {
     "aws:us-east-1": {
