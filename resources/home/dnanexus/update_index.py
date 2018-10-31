@@ -51,17 +51,26 @@ a_tag.string="MultiQC report"
 
 # Set HTML tag nesting heirarchy
 ul_tag.append(a_tag)
-div_tag.append(h1_tag)
-div_tag.append(ul_tag)
+for item in ["\n", h1_tag, "\n", ul_tag, "\n"]:
+    div_tag.append(item)
+# div_tag.append("\n")
+# div_tag.append(h1_tag)
+# div_tag.append("\n")
+# div_tag.append(ul_tag)
+# div_tag.append("\n")
 
 # Insert the HTML tags into the index file, nested within the <body> tag.
 # As soup.body is a list of HTML tags nested within the HTML body. The first argument of the
 # soup.body.insert() method dictates where new tags should be inserted in this list. To ensure the
 # new multiqc report link appears at the top of the HTML, we insert our <br>, <div> and <br> tags in
 # the 1st, 2nd, and 3rd position within the body tag.
-soup.body.insert(1, br_tag)
-soup.body.insert(2, div_tag)
-soup.body.insert(3, br_tag2)
+for position, item in enumerate([br_tag, "\n", br_tag2, "\n", div_tag, "\n"], 1):
+    soup.body.insert(position, item)
+
+# soup.body.insert(1, br_tag)
+# soup.body.insert(2, "\n")
+# soup.body.insert(3, div_tag)
+# soup.body.insert(4, '\n')
 
 # Write the new index file
 with open('new_index.html', 'w') as file:

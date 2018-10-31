@@ -31,20 +31,20 @@ rsync -avhz -e "ssh $ssh_opts" mokaguys@genomics.viapath.co.uk:/var/www/html/mok
 # expected multiqc report file path passed to the -e flag for testing.
 file_exists_test="$ssh_opts mokaguys@genomics.viapath.co.uk test -e /var/www/html/mokaguys/multiqc/reports/${multiqc_html_name}"
 
-# Test if the file exists on the Viapath Genomics server using ssh and ${file_exist_test} arguments.
+# Test if the file exists on the Viapath Genomics server using ssh and ${file_exist_test} arguments. Exit with error code 1 if True.
 if ssh ${file_exists_test}; then
-    echo "File exists."
-# If the file does not exist
-else
-    # Upload the multiqc html to the multiqc reports directory
-    rsync -avhz -e "ssh $ssh_opts" ${multiqc_html_path} mokaguys@genomics.viapath.co.uk:/var/www/html/mokaguys/multiqc/reports/${multiqc_html_name}
-    # Call a python script to create a new index.html from html file list. This script outputs the file
-    # 'new_index.html' to the current working directory.
-    python update_index.py ${out_dir}/old_index.html ${multiqc_html_path}
-    mv new_index.html ${out_dir}
-    # Upload new index.html to server
-    rsync -avhz -e "ssh $ssh_opts" ${out_dir}/new_index.html mokaguys@genomics.viapath.co.uk:/var/www/html/mokaguys/multiqc/index.html
+    echo "ERROR: ${multiqc_html_name} exists at /var/www/html/mokaguys/multiqc/reports/." 1>&2
+    exit 1
 fi
+
+# Upload the multiqc html to the multiqc reports directory
+rsync -avhz -e "ssh $ssh_opts" ${multiqc_html_path} mokaguys@genomics.viapath.co.uk:/var/www/html/mokaguys/multiqc/reports/${multiqc_html_name}
+# Call a python script to create a new index.html from html file list. This script outputs the file
+# 'new_index.html' to the current working directory.
+python update_index.py ${out_dir}/old_index.html ${multiqc_html_path}
+mv new_index.html ${out_dir}
+# Upload new index.html to server
+rsync -avhz -e "ssh $ssh_opts" ${out_dir}/new_index.html mokaguys@genomics.viapath.co.uk:/var/www/html/mokaguys/multiqc/index.html
 
 # Upload outputs to DNAnexus. This will always upload 'old_index.html'. If the multiqc report did
 # not exist, it will also upload 'new_index.html'.
