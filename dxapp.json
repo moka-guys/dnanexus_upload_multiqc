@@ -1,12 +1,12 @@
 {
-  "name": "upload_multiqc_v1.0",
-  "title": "Upload Multiqc v1.0",
+  "name": "upload_multiqc_v1.1",
+  "title": "Upload Multiqc v1.1",
   "summary": "Uploads multiqc file to the Viapath Genomics server",
   "tags": [
     "QC"
   ],
   "properties": {
-    "github release": "v1.0"
+    "github release": "v1.1"
   },
   "dxapi": "1.0.0",
   "inputSpec": [
