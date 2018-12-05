@@ -46,7 +46,7 @@ a_tag = soup.new_tag('a', href="./reports/{}".format(multiqc_html))
 #   <ul><a href="./reports/REPORT-multiqc.html">MultiQC report</a></ul>
 # </div>
 div_tag['class'] = "well"
-h1_tag.string=multiqc_html.rstrip('-multiqc.html')
+h1_tag.string=multiqc_html.replace('-multiqc.html','')
 a_tag.string="MultiQC report"
 
 # Set HTML tag nesting heirarchy
