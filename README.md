@@ -1,4 +1,4 @@
-# Upload Multiqc v1.0
+# Upload Multiqc v1.1
 
 ## What does this app do?
 Uploads a multiqc HTML report file to the Viapath Genome Informatics (VGI) web server. Following this, the app updates the web server index file with a link to the new report.
