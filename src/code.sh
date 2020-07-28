@@ -46,6 +46,28 @@ mv new_index.html ${out_dir}
 # Upload new index.html to server
 rsync -avhz -e "ssh $ssh_opts" ${out_dir}/new_index.html mokaguys@genomics.viapath.co.uk:/var/www/html/mokaguys/multiqc/index.html
 
+if [[ "$upload_data_files" == "true" ]]; then
+    # capture the project name from the multiqc html name (project_name-multiqc.html)
+    project_name=$(echo $multiqc_html_name | cut -d"-" -f1)
+    # a string which ssh's onto server and looks for a folder with the runfolder name in the location which holds multiqc data
+    # this returns a string if the folder path exists
+    dir_exists_test="$ssh_opts mokaguys@genomics.viapath.co.uk [ -d /var/www/html/mokaguys/multiqc/trend_analysis/multiqc_data/$project_name ] && echo dir_ exists"
+    
+    # If there is a folder matching project name exit with error code 1.
+    if [[ $(ssh ${dir_exists_test}) == "dir exists" ]]; then
+        echo "ERROR: ${project_name} data already on server at /var/www/html/mokaguys/multiqc/trend_analysis/multiqc_data" 1>&2
+        exit 1
+    fi
+    # if doesn't already exist create folder
+    create_folder="$ssh_opts mokaguys@genomics.viapath.co.uk mkdir /var/www/html/mokaguys/multiqc/trend_analysis/multiqc_data/${project_name}"
+    ssh $create_folder
+    # for each data file in $multiqc_data_input upload to server 
+    for data_file_path in "${multiqc_data_input_path[@]}"; do
+        # Upload the multiqc data files to the multiqc reports directory
+        rsync -avhz -e "ssh $ssh_opts" ${data_file_path} mokaguys@genomics.viapath.co.uk:/var/www/html/mokaguys/multiqc/trend_analysis/multiqc_data/${project_name}
+    done
+fi
+
 # Upload outputs to DNAnexus. This will always upload 'old_index.html'. If the multiqc report did
 # not exist, it will also upload 'new_index.html'.
 dx-upload-all-outputs
