@@ -48,7 +48,7 @@ rsync -avhz -e "ssh $ssh_opts" ${out_dir}/new_index.html mokaguys@genomics.viapa
 
 if [[ "$upload_data_files" == "true" ]]; then
     # capture the project name from the multiqc html name (project_name-multiqc.html)
-    project_name=$(echo $multiqc_html_name | cut -d"-" -f1)
+    project_name=$(echo $multiqc_html_name | rev | cut -f2-3 -d "-" | rev)
     # a string which ssh's onto server and looks for a folder with the runfolder name in the location which holds multiqc data
     # this returns a string if the folder path exists
     dir_exists_test="$ssh_opts mokaguys@genomics.viapath.co.uk [ -d /var/www/html/mokaguys/multiqc/trend_analysis/multiqc_data/$project_name ] && echo dir_ exists"

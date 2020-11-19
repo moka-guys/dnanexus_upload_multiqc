@@ -1,4 +1,4 @@
-# Upload Multiqc v1.2
+# Upload Multiqc v1.3
 
 ## What does this app do?
 Uploads a multiqc HTML report file to the Viapath Genome Informatics web server.
