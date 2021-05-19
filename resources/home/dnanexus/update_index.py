@@ -25,7 +25,8 @@ index_html = sys.argv[1]
 # Remove directory prefix from multiqc html input argument
 # E.g. /usr/bin/multiqc.html --> multiqc.html
 multiqc_html = os.path.basename(sys.argv[2])
-
+#make output explicit 
+#new_index.html = sys.argv[3]
 # Open the index file as a BeautifulSoup.Soup class. This reads the HTML tags as python objects.
 with open(index_html) as index:
     soup=Soup(index.read(), features="html.parser")
@@ -64,5 +65,5 @@ for position, item in enumerate([br_tag, "\n", br_tag2, "\n", div_tag, "\n"], 1)
     soup.body.insert(position, item)
 
 # Write the new index file
-with open('new_index.html', 'w') as file:
+with open(sys.argv[3], 'w') as file:
 	file.write(str(soup))
