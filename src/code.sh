@@ -5,7 +5,8 @@ set -e -x -o pipefail
 
 # Download input data
 dx-download-all-inputs
-
+#Load docker image
+docker load -i '/home/dnanexus/seglh_uploadindex.tgz'
 # Create output directory
 out_dir=/home/dnanexus/out/upload_multiqc/QC/multiqc/
 mkdir -p ${out_dir}
@@ -39,10 +40,9 @@ fi
 
 # Upload the multiqc html to the multiqc reports directory
 rsync -avhz -e "ssh $ssh_opts" ${multiqc_html_path} mokaguys@genomics.viapath.co.uk:/var/www/html/mokaguys/multiqc/reports/${multiqc_html_name}
-# Call a python script to create a new index.html from html file list. This script outputs the file
-# 'new_index.html' to the current working directory.
-python update_index.py ${out_dir}/old_index.html ${multiqc_html_path}
-mv new_index.html ${out_dir}
+#Run docker image to create new_index.html
+docker run -v `pwd`:/home/dnanexus seglh/upload_index:latest ${out_dir}/old_index.html ${multiqc_html_path} ${out_dir}/new_index.html
+
 # Upload new index.html to server
 rsync -avhz -e "ssh $ssh_opts" ${out_dir}/new_index.html mokaguys@genomics.viapath.co.uk:/var/www/html/mokaguys/multiqc/index.html
 
