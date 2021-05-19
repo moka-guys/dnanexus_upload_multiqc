@@ -1,12 +1,12 @@
 {
-  "name": "upload_multiqc_v1.3",
-  "title": "Upload Multiqc v1.3",
+  "name": "upload_multiqc_v1.4.0",
+  "title": "Upload Multiqc v1.4.0",
   "summary": "Uploads multiqc file to the Viapath Genomics server",
   "tags": [
     "QC"
   ],
   "properties": {
-    "github release": "v1.3"
+    "github release": "v1.4.0"
   },
   "dxapi": "1.0.0",
   "inputSpec": [
@@ -42,23 +42,18 @@
     }
   ],
   "runSpec": {
-    "execDepends": [
-      {
-        "name": "beautifulsoup4",
-        "package_manager": "pip",
-        "version": "4.6"
-      }
-    ],
-    "file": "src/code.sh",
-    "release": "14.04",
     "interpreter": "bash",
-    "distribution": "Ubuntu"
+    "distribution": "Ubuntu",
+    "release": "16.04",
+    "version": "0",
+    "file": "src/code.sh"
   },
   "access": {
     "network": [
       "*"
     ]
   },
+  "ignoreReuse": false,
   "regionalOptions": {
     "aws:us-east-1": {
       "systemRequirements": {
