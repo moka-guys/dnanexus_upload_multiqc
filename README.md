@@ -1,4 +1,4 @@
-# Upload Multiqc v1.3
+# Upload Multiqc v1.4.0
 
 ## What does this app do?
 Uploads a multiqc HTML report file to the Viapath Genome Informatics web server.
@@ -22,7 +22,7 @@ On completion of a sequencing run, this app is run to make multiqc reports avail
 ## How does this app work?
 Firstly, the app downloads the given input multiqc report. This is copied to the expected location on the server (/var/www/html/mokaguys/multiqc/reports). To connect to the server, this appl requires SSH keys, which are not included in the github repository for privacy reasons. The `rsync` command is used to perform the copy as it contains a checksum protocol to verify data integrity.
 
-Next, the app adds a link to the top of the server's index.html file, which points to the new multiqc report. The script 'update_index.py' (bundled as an app resource) is used to generate this new index. Here, the beautifulsoup4 python module is used for HTML parsing. Below is an example of the HTML string inserted at the top of the report:
+Next, the app adds a link to the top of the server's index.html file, which points to the new multiqc report. The script 'update_index.py' (bundled in a docker image seglh/upload_index) is used to generate this new index. Here, the beautifulsoup4 python module is used for HTML parsing. Below is an example of the HTML string inserted at the top of the report:
 ```
 <br/>
 <div class="well">
